@@ -28,4 +28,4 @@ if ddatastate != '00' :
 DATALIST = RAWDATADIC['response']['body']['items']
 DATAamou = RAWDATADIC['response']['body']['totalCount']
 
-gitcheck = 1
+gitcheck = 3

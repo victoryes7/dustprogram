@@ -3,6 +3,15 @@ print('='*70)
 
 import requests
 import json
+import pandas
+
+StaList = pandas.read_excel('station_list.xls')
+StaLo = list(StaList['Unnamed: 0'])[3:]
+StaNa = list(StaList['Unnamed: 1'])[3:]
+StaInfo = list(zip(StaLo,StaNa))
+
+for Lo, Na in StaInfo :
+      print( f'{Na:=<5} in {Lo:=>5}' )
 
 stationname = input('input your needed station name:')
 
@@ -41,7 +50,7 @@ for Q in range(DATAamou) :
       RFdatadic[Q] = []
 
 for num , DATA in enumerate(DATALIST) :
-      ListOfDATA = [0 for x in range(7)]
+      ListOfDATA = []
       
       ListOfDATA.append(DATA.get('so2Value' , 0))
       ListOfDATA.append(DATA.get('coValue' , 0))
@@ -49,6 +58,11 @@ for num , DATA in enumerate(DATALIST) :
       ListOfDATA.append(DATA.get('no2Value' , 0))
       ListOfDATA.append(DATA.get('pm10Value' , 0))
       ListOfDATA.append(DATA.get('pm25Value' , 0))
+      
+      for inx , DATA in enumerate(ListOfDATA) :
+            if DATA == '-' :
+                  ListOfDATA[inx] = 0
+      ListOfDATA = list(map(float,ListOfDATA))
       
       for Q in range(6) :
             if ListOfDATA[Q] > ListOfCrit[Q] :

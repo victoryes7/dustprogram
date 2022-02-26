@@ -5,13 +5,29 @@ import requests
 import json
 import pandas
 
+print(f'{"loading station list":=^70}')
 StaList = pandas.read_excel('station_list.xls')
 StaLo = list(StaList['Unnamed: 0'])[3:]
 StaNa = list(StaList['Unnamed: 1'])[3:]
 StaInfo = list(zip(StaLo,StaNa))
 
+LoMem = ''
+LineMem = 0
 for Lo, Na in StaInfo :
-      print( f'{Na:=<5} in {Lo:=>5}' )
+      if Lo != LoMem :
+            print()
+            msg = f'stations in {Lo}'
+            print(f'{msg:-^70}')
+            LoMem = Lo
+            LineMem = 0
+            
+      print(Na , end = ' / ')
+      LineMem += 1
+      if LineMem == 10 :
+            print()
+            LineMem = 0
+
+print()
 
 stationname = input('input your needed station name:')
 

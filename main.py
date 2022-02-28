@@ -29,7 +29,10 @@ for Lo, Na in StaInfo :
 
 print()
 
-stationname = input('input your needed station name:')
+stationname = str()
+while not (stationname in StaNa) :
+      stationname = input('input your needed station name:')
+
 
 REQUESTPOINT = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty'
 PAR = {
@@ -43,14 +46,17 @@ PAR = {
 }
 PAR['stationName'] = stationname
 
+print('Data Requesting...')
+
 ANSWER = requests.get(REQUESTPOINT,params = PAR)
 RAWDATADIC = json.loads(ANSWER.content)
 
 ddatastate = RAWDATADIC['response']['header']['resultCode']
+
 if ddatastate == '00' :
       print('Data Download Completed')
 if ddatastate != '00' :
-      print('Requesting Data Error')
+      print('Requested Data Error')
 #데이터가 문제없이 불러와지면 '00'을 저장
 
 DATALIST = RAWDATADIC['response']['body']['items']

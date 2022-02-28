@@ -32,6 +32,8 @@ print()
 stationname = str()
 while not (stationname in StaNa) :
       stationname = input('input your needed station name:')
+      if not stationname in StaNa :
+            print('invalid station name. please choose one from list above')
 
 
 REQUESTPOINT = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty'
